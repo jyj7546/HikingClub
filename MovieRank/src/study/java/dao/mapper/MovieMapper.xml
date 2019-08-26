@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="MovieMapper">
+	<resultMap id="movie" type="study.java.model.Movie">
+		<result property="id" 				column="id" />
+		<result property="searchDate" 		column="search_date" />
+		<result property="rank" 			column="rank" />
+		<result property="rankInten" 		column="rank_inten" />
+		<result property="rankOldAndNew" 	column="rank_old_and_new" />
+		<result property="movieCd" 			column="movie_cd" />
+		<result property="movieNm" 			column="movie_nm" />
+		<result property="opDt" 			column="open_dt" />
+		<result property="salesAmt" 		column="sales_amt" />
+		<result property="salesShare" 		column="sales_share" />
+		<result property="salesInten" 		column="sales_inten" />
+		<result property="salesChange" 		column="sales_change" />
+		<result property="salesAcc" 		column="sales_acc" />
+		<result property="audiCnt" 			column="audi_cnt" />
+		<result property="audiInten" 		column="audi_inten" />
+		<result property="audiChange" 		column="audi_change" />
+		<result property="audiAcc" 			column="audi_acc" />
+		<result property="scrnCnt" 			column="scrn_cnt" />
+		<result property="showCnt" 			column="show_cnt" />
+		<result property="regDate" 			column="reg_date" />
+		<result property="editDate" 		column="edit_date" />
+	</resultMap>
+	
+	<select id="get_item" parameterType="study.java.model.Movie" resultMap="movie">
+		SELECT
+			id, search_date, rank, rank_inten, rank_old_and_new, 
+			movie_cd, movie_nm, open_dt, sales_amt, sales_share, 
+			sales_inten, sales_change, sales_acc, audi_cnt, audi_inten, 
+			audi_change, audi_acc, scrn_cnt, show_cnt, reg_date, edit_date
+		FROM
+			movie_rank
+		WHERE
+			id = #{id}
+	</select>
+
+
+	<insert id="add_item" parameterType="study.java.model.Movie" 
+			useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO movie_rank (
+			search_date, 	rank, 		  	rank_inten, 	rank_old_and_new, 
+			movie_cd, 		movie_nm, 	  	open_dt, 		sales_amt, 
+			sales_share, 	sales_inten,  	sales_change, 	sales_acc, 		
+			audi_cnt, 		audi_inten, 	audi_change, 	audi_acc, 	  
+			scrn_cnt, 		show_cnt, 		reg_date, 		edit_date
+		) VALUES (
+			#{searchDate}, 	#{rank}, 		#{rankInten}, 	#{rankOldAndNew}, 
+			#{movieCd}, 	#{movieNm}, 	#{openDt}, 		#{salesAmt}, 
+			#{salesShare},  #{salesInten}, 	#{salesChange}, #{salesAcc}, 	
+			#{audiCnt}, 	#{audiInten}, 	#{audiChange}, 	#{audiAcc}, 	
+			#{scrnCnt}, 	#{showCnt}, 	now(), 			now()
+		)
+	</insert>	
+
+	
+	<update id="edit_item" parameterType="study.java.model.Movie">
+		UPDATE movie_rank SET
+			search_date 		= #{searchDate},
+			rank 				= #{rank},
+			rank_inten 			= #{rankInten},
+			rank_old_and_new 	= #{rankOldAndNew},
+			movie_cd 			= #{movieCd},
+			movie_nm 			= #{movieNm},
+			open_dt 			= #{openDt},
+			sales_amt 			= #{salesAmt},
+			sales_share 		= #{salesShare},
+			sales_inten 		= #{salesInten},
+			sales_change 		= #{salesChange},
+			sales_acc 			= #{salesAcc},
+			audi_cnt 			= #{audiCnt},
+			audi_inten 			= #{audiInten},
+			audi_change 		= #{audiChange},
+			audi_acc 			= #{audiAcc},
+			scrn_cnt 			= #{scrnCnt},
+			show_cnt 			= #{showCnt},
+			edit_date 			= now()
+		WHERE
+			search_date = #{searchDate} AND movie_nm = #{movieNm}
+	</update>
+	
+</mapper>
+
+
+

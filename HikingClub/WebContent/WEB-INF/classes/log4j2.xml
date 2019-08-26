@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<Configuration status="INFO">
+	<Appenders>
+		<!-- <RollingFile name="RollingFile" fileName="로그가 저장될 디렉토리 경로/log.log" 
+			filePattern="로그가 저장될 디렉토리 경로/log-%d{yyyy-MM-dd}.log" append="false"> -->
+		<RollingFile name="RollingFile" fileName="/Users/mac/eclipse-workspace/logs/log.log"
+			filePattern="/Users/mac/eclipse-workspace/logs/log-%d{yyyy-MM-dd}.log" append="false">
+			<PatternLayout pattern="%d %5p [%c] %m%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1"
+					modulate="true" />
+			</Policies>
+		</RollingFile>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout
+				pattern="%d{yyy-MM-dd HH:mm:ss} [%-5level] %logger - %msg%n" />
+		</Console>
+	</Appenders>
+
+	<Loggers>
+		<Root level="DEBUG" additivity="false">
+			<AppenderRef ref="Console" />
+			<AppenderRef ref="RollingFile" />
+		</Root>
+		<logger name="org.apache.ibatis" level="DEBUG"
+			additivity="false">
+			<AppenderRef ref="Console" />
+			<AppenderRef ref="RollingFile" />
+		</logger>
+
+		<!-- 기능별 로그 출력 수준 설정 파일 -->
+		<logger name="jdbc.sqlonly" level="INFO" additivity="false">
+			<AppenderRef ref="Console" />
+			<AppenderRef ref="RollingFile" />
+		</logger>
+
+		<logger name="jdbc.sqltiming" level="OFF" additivity="false">
+			<AppenderRef ref="Console" />
+			<AppenderRef ref="RollingFile" />
+		</logger>
+
+		<logger name="jdbc.audit" level="OFF" additivity="false">
+			<AppenderRef ref="Console" />
+			<AppenderRef ref="RollingFile" />
+		</logger>
+
+		<logger name="jdbc.resultset" level="ERROR" additivity="false">
+			<AppenderRef ref="Console" />
+			<AppenderRef ref="RollingFile" />
+		</logger>
+
+		<logger name="jdbc.resultsettable" level="DEBUG"
+			additivity="false">
+			<AppenderRef ref="Console" />
+			<AppenderRef ref="RollingFile" />
+		</logger>
+
+		<logger name="jdbc.connection" level="ERROR" additivity="false">
+			<AppenderRef ref="Console" />
+			<AppenderRef ref="RollingFile" />
+		</logger>
+
+		<logger name="log4jdbc.debug" level="ERROR" additivity="false">
+			<AppenderRef ref="Console" />
+			<AppenderRef ref="RollingFile" />
+		</logger>
+
+	</Loggers>
+</Configuration>
